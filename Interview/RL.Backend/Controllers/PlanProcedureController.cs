@@ -1,8 +1,5 @@
-using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
-using RL.Backend.Commands;
-using RL.Backend.Models;
 using RL.Data;
 using RL.Data.DataModels;
 
@@ -14,21 +11,11 @@ public class PlanProcedureController : ControllerBase
 {
     private readonly ILogger<PlanProcedureController> _logger;
     private readonly RLContext _context;
-    private readonly IMediator _mediator;
 
-    public PlanProcedureController(ILogger<PlanProcedureController> logger, RLContext context, IMediator mediator)
+    public PlanProcedureController(ILogger<PlanProcedureController> logger, RLContext context)
     {
         _logger = logger;
         _context = context ?? throw new ArgumentNullException(nameof(context));
-        _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
-    }
-
-    [HttpPost(nameof(AddUserToPlanProcedure))]
-    public async Task<IActionResult> AddUserToPlanProcedure(AddUserToPlanProcedureCommand command, CancellationToken token)
-    {
-        var response = await _mediator.Send(command, token);
-
-        return response.ToActionResult();
     }
 
     [HttpGet]

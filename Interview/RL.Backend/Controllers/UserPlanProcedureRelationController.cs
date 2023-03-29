@@ -20,9 +20,9 @@ namespace RL.Backend.Controllers
 
         [HttpGet]
         [EnableQuery]
-        public IEnumerable<UserPlanProcedureRelation> Get()
+        public IEnumerable<ProcedureUser> Get()
         {
-            return _context.UserPlanProcedureRelations;
+            return _context.ProcedureUsers;
         }
     }
 }
