@@ -7,12 +7,12 @@ namespace RL.Backend.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class UserPlanProcedureRelationController
+    public class ProcedureUsersController
     {
-        private readonly ILogger<UserPlanProcedureRelationController> _logger;
+        private readonly ILogger<ProcedureUsersController> _logger;
         private readonly RLContext _context;
 
-        public UserPlanProcedureRelationController(ILogger<UserPlanProcedureRelationController> logger, RLContext context)
+        public ProcedureUsersController(ILogger<ProcedureUsersController> logger, RLContext context)
         {
             _logger = logger;
             _context = context ?? throw new ArgumentNullException(nameof(context));
