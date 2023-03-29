@@ -9,7 +9,7 @@ public class RLContext : DbContext
     public DbSet<PlanProcedure> PlanProcedures { get; set; }
     public DbSet<Procedure> Procedures { get; set; }
     public DbSet<User> Users { get; set; }
-    public DbSet<UserPlanProcedureRelation> UserPlanProcedureRelations { get; set; }
+    public DbSet<ProcedureUser> ProcedureUsers { get; set; }
 
     public RLContext() { }
     public RLContext(DbContextOptions<RLContext> options) : base(options) { }
@@ -25,17 +25,14 @@ public class RLContext : DbContext
             typeBuilder.HasOne(pp => pp.Procedure).WithMany();
         });
 
-        builder.Entity<UserPlanProcedureRelation>(typeBuilder =>
+        builder.Entity<ProcedureUser>(typeBuilder =>
         {
-            typeBuilder.HasKey(r => new { r.UserId, r.PlanId, r.ProcedureId });
+            typeBuilder.HasKey(r => new { r.UserId,  r.ProcedureId });
             typeBuilder.HasOne(r => r.User)
                         .WithMany()
                         .HasForeignKey(r => r.UserId);
-            typeBuilder.HasOne(r => r.Plan)
-                        .WithMany()
-                        .HasForeignKey(r => r.PlanId);
             typeBuilder.HasOne(r => r.Procedure)
-                        .WithMany()
+                        .WithMany(p => p.ProcedureUsers)
                         .HasForeignKey(r => r.ProcedureId);
         });
 
